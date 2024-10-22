@@ -1,0 +1,89 @@
+en:
+  PLUGIN_ORESTBIDA_COOKIE_CONSENT:
+    TAB: Cookies
+    MAIN: Cookies Consent Main Options
+    ENABLED: Enable Cookies Consent Banner
+    CDN_HELP: "Include JavaScript and CSS files from official CDN or local."
+    THEME: 
+      LABEL: Theme
+      DEFAULT: Default
+      LIGHTFUNKY: Light-Funky
+      DARKTURQUOISE: Dark Turquoise
+      ELEGANT: Elegant
+    CONSENT_MODAL_SETTINGS: Consent Modal Settings
+    CONSENT_LAYOUT:
+      LABEL: Consent Modal Layout
+      BOX: Box
+      BOXINLINE: Box Inline
+      BOXWIDE: Wide
+      CLOUD: Cloud
+      CLOUDINLINE: Cloud Inline
+      BAR: Bar
+      BARINLINE: Bar Inline
+    CONSENT_POSITION:
+      LABEL: Consent Modal Position
+      BOTTOM_CENTER: Bottom Center
+      BOTTOM_LEFT: Bottom Left
+      BOTTOM_RIGHT: Bottom Right
+      TOP_CENTER: Top Center
+      TOP_LEFT: Top Left
+      TOP_RIGHT: Top Right
+      MIDDLE_CENTER: Middle Center
+      MIDDLE_LEFT: Middle Left
+      MIDDLE_RIGHT: Middle Right
+    CONSENT_TITLE: Consent Modal Title
+    CONSENT_TITLE_PLACEHOLDER: We use cookies
+    CONSENT_DESCRIPTION: Consent Modal Description
+    CONSENT_DESCRIPTION_PLACEHOLDER: 'We use cookies to ensure that we give the best user experience on our website. If you want more information, consult our Cookies Policy'
+    CONSENT_ACCEPTALLBTN: '<strong>Accept All</strong> button text'
+    CONSENT_ACCEPTNECESSARYBTN: '<strong>Reject All</strong> button text'
+    CONSENT_SHOWPREFERENCESBTN: '<strong>Manage Preferences</strong> button text'
+    PREFERENCES_MODAL_SETTINGS: Preferences Modal Settings
+    PREFERENCES_LAYOUT:
+      LABEL: Preferences Modal Layout
+      BOX: Box
+      BAR: Bar
+      BARWIDE: Bar Wide
+    PREFERENCES_POSITION:
+      LABEL: Preferences Position (Only for Bar Layout)
+      LEFT: Left
+      RIGHT: Right
+    PREFERENCES_TITLE: Consent Preferences Bar Title
+    PREFERENCES_TITLE_PLACEHOLDER: Consent Preferences Center
+    PREFERENCES_ACCEPTALLBTN: '<strong>Accept All</strong> button text'
+    PREFERENCES_ACCEPTNECESSARYBTN: '<strong>Reject All</strong> button text'
+    PREFERENCES_SAVEPREFERENCESBTN: '<strong>Save Preferences</strong> button text'
+    # Common Labels and Help Text
+    CATEGORIES_LABEL: 'Categories'
+    CATEGORIES_HELP: 'Cookies Consent Categories'
+    DESCRIPTION_LABEL: 'Description'
+    DESCRIPTION_PLACEHOLDER: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
+    # Options
+    NECESSARY: 'Necessary'
+    FUNCTIONALITY: 'Functionality'
+    ANALYTICS: 'Analytics'
+    MARKETING: 'Marketing'
+    MORE_INFO: 'More Info'
+    NECESSARY_HELP: 'Necessary cookies. Not allowed to disable'
+    # Sections Content
+    SECTIONS_CONTENT_TITLE: Sections content
+    SECTIONS_CONTENT_LABEL: 'Cookies Section'
+    USAGE: 'Cookies Usage'
+    NECESSARY_COOKIES: 'Necessary Cookies'
+    FUNCTIONALITY_COOKIES: 'Functionality Cookies'
+    ANALYTICS_COOKIES: 'Analytics Cookies'
+    MARKETING_COOKIES: 'Marketing Cookies'          
+    # Titles and Placeholders for Each Section
+    USAGE_TITLE: 'Usage Title'
+    USAGE_PLACEHOLDER: 'Cookie Usage'
+    NECESSARY_TITLE: 'Necessary Title'
+    NECESSARY_PLACEHOLDER: 'Strictly Necessary Cookies'
+    FUNCTIONALITY_TITLE: 'Functionality Title'
+    FUNCTIONALITY_PLACEHOLDER: 'Functionality Cookies'
+    ANALYTICS_TITLE: 'Analytics Title'
+    ANALYTICS_PLACEHOLDER: 'Analytics Cookies'
+    MARKETING_TITLE: 'Marketing Title'
+    MARKETING_PLACEHOLDER: 'Advertisement Cookies'
+    MORE_INFO_TITLE: 'More Info Title'
+    MORE_INFO_PLACEHOLDER: 'More Information'
+    MORE_INFO_DESCRIPTIOIN_PLACEHOLDER: 'For any query in relation to my policy on cookies and your choices, please <a href="#>contact me</a>.'

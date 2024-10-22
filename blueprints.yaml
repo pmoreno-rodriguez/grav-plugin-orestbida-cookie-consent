@@ -1,0 +1,290 @@
+name: Orestbida Cookie Consent
+slug: orestbida-cookie-consent
+type: plugin
+version: 0.1.0
+description: This grav plugin allow you manage the cookies used in your site, with the popular js lib Cookie Consent by Orestbida
+icon: plug
+author:
+  name: pmdesign
+  email: pmoreno@pmdesign.dev
+homepage: https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent/issues
+docs: https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent/blob/develop/README.md
+license: MIT
+
+dependencies:
+  - { name: grav, version: '>=1.7.0' }
+
+form:
+  validation: loose
+  fields:
+    main:
+      type: section
+      underline: true
+      title: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MAIN
+
+    enabled:
+        type: toggle
+        label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ENABLED
+        highlight: 1
+        default: 1
+        options:
+          1: PLUGIN_ADMIN.ENABLED
+          0: PLUGIN_ADMIN.DISABLED
+        validate:
+          type: bool
+    cdn:
+        type: toggle
+        label: CDN
+        help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CDN_HELP
+        highlight: 1
+        default: 1
+        options:
+          1: PLUGIN_ADMIN.ENABLED
+          0: PLUGIN_ADMIN.DISABLED
+        validate:
+          type: bool
+    theme:
+        type: select
+        label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.LABEL
+        size: small
+        default: default
+        options:
+          default: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.DEFAULT
+          light-funky: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.LIGHTFUNKY
+          dark-turquoise: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.DARKTURQUOISE
+          elegant: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.ELEGANT
+
+    cookies_settings:
+      type: columns
+      fields:
+        consent:
+          type: column
+          fields:
+             
+            consent_modal_settings:
+              type: section
+              title: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_MODAL_SETTINGS
+              underline: true
+
+            consent_layout:
+                type: select
+                label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.LABEL
+                size: small
+                default: block
+                options:
+                    box: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.BOX
+                    box_inline: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.BOXINLINE
+                    box_wide: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.BOXWIDE
+                    cloud: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.CLOUD
+                    cloud_inline: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.CLOUDINLINE
+                    bar: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.BAR
+                    bar_inline: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_LAYOUT.BARINLINE
+            consent_position:
+                type: select
+                label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.LABEL
+                size: small
+                default: bottom_right
+                options:
+                    top_center: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.TOP_CENTER
+                    top_left: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.TOP_LEFT
+                    top_right: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.TOP_RIGHT
+                    bottom_center: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.BOTTOM_CENTER
+                    bottom_left: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.BOTTOM_LEFT
+                    bottom_right: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.BOTTOM_RIGHT
+                    middle_center: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.MIDDLE_CENTER
+                    middle_left: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.MIDDLE_LEFT
+                    middle_right: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_POSITION.MIDDLE_RIGHT
+
+            consent_title:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_TITLE
+              placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_TITLE_PLACEHOLDER
+              validate:
+                type: text
+            
+            consent_description:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_DESCRIPTION
+              placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_DESCRIPTION_PLACEHOLDER
+              validate:
+                type: text
+            
+            consent_acceptAllBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_ACCEPTALLBTN
+              validate:
+                type: text
+            consent_acceptNecessaryBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_ACCEPTNECESSARYBTN
+              validate:
+                type: text
+            consent_showPreferencesBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_SHOWPREFERENCESBTN
+              validate:
+                type: text
+        preferences:
+          type: column
+          fields:
+
+            preferences_modal_settings:
+              type: section
+              title: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_MODAL_SETTINGS
+              underline: true
+            
+            preferences_layout:
+                type: select
+                label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_LAYOUT.LABEL
+                size: small
+                default: box
+                options:
+                    box: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_LAYOUT.BOX
+                    bar: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_LAYOUT.BAR
+                    bar_wide: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_LAYOUT.BARWIDE
+            preferences_position:
+                type: select
+                label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_POSITION.LABEL
+                size: small
+                default: left
+                options:
+                    left: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_POSITION.LEFT
+                    right: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_POSITION.RIGHT
+            preferences_title:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_TITLE
+              placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_TITLE_PLACEHOLDER
+              validate:
+                type: text
+            preferences_acceptAllBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_ACCEPTALLBTN
+              validate:
+                type: text
+            preferences_acceptNecessaryBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_ACCEPTNECESSARYBTN
+              validate:
+                type: text
+            preferences_savePreferencesBtn:
+              type: text
+              label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_SAVEPREFERENCESBTN
+              validate:
+                type: text
+    categories:
+      type: checkboxes
+      label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CATEGORIES_LABEL
+      style: vertical
+      help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CATEGORIES_HELP
+      default:
+        necessary: true
+        functionality: false
+        analytics: false
+        marketing: false
+      options:
+        necessary: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY
+        functionality: PLUGIN_ORESTBIDA_COOKIE_CONSENT.FUNCTIONALITY
+        analytics: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS
+        marketing: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING
+      help_options:
+        necessary: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_HELP
+      use: keys
+      disabled_options:
+        - necessary
+      validate:
+        type: commalist
+
+    cookies_sections:
+      type: section
+      title: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SECTIONS_CONTENT_TITLE
+      
+      fields:
+        cookies_sections.default:
+          type: elements
+          label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SECTIONS_CONTENT_LABEL
+          size: large
+          default: usage
+          options:
+            usage: PLUGIN_ORESTBIDA_COOKIE_CONSENT.USAGE
+            necessary: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_COOKIES
+            functionality: PLUGIN_ORESTBIDA_COOKIE_CONSENT.FUNCTIONALITY_COOKIES
+            analytics: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS_COOKIES
+            marketing: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_COOKIES
+            more_info: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO
+          fields:
+            usage:
+              type: element
+              fields:
+                cookies_sections.usage.title:
+                  type: text
+                  size: large
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.USAGE_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.USAGE_PLACEHOLDER
+                cookies_sections.usage.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+            necessary:
+              type: element
+              fields:
+                cookies_sections.necessary.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_PLACEHOLDER
+                cookies_sections.necessary.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+            functionality:
+              type: element
+              fields:
+                cookies_sections.functionality.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.FUNCTIONALITY_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.FUNCTIONALITY_PLACEHOLDER
+                cookies_sections.functionality.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+            analytics:
+              type: element
+              fields:
+                cookies_sections.analytics.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS_PLACEHOLDER
+                cookies_sections.analytics.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+            marketing:
+              type: element
+              fields:
+                cookies_sections.marketing.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_PLACEHOLDER
+                cookies_sections.marketing.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+            more_info:
+              type: element
+              fields:
+                cookies_sections.more_info.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_PLACEHOLDER
+                cookies_sections.more_info.description:
+                  type: textarea
+                  rows: 3
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_DESCRIPTIOIN_PLACEHOLDER
