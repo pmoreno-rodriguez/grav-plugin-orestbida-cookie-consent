@@ -1,33 +1,7 @@
 {# COOKIES CONSENT SETTINGS #}
 
-{% set cookies_consent_layout = config.plugins['orestbida-cookie-consent'].consent_layout ?? 'box' %}
-{% set cookies_consent_position = config.plugins['orestbida-cookie-consent'].consent_position ?? 'bottom' %}
-{% set cookies_consent_title = config.plugins['orestbida-cookie-consent'].consent_title ?? '' %}
-{% set cookies_consent_description = config.plugins['orestbida-cookie-consent'].consent_description ?? '' %}
-{% set cookies_consent_acceptAllBtn = config.plugins['orestbida-cookie-consent'].consent_acceptAllBtn ?? '' %}
-{% set cookies_consent_acceptNecessaryBtn = config.plugins['orestbida-cookie-consent'].consent_acceptNecessaryBtn ?? '' %}
-{% set cookies_consent_showPreferencesBtn = config.plugins['orestbida-cookie-consent'].consent_showPreferencesBtn ?? '' %}
-{% set cookies_preferences_layout = config.plugins['orestbida-cookie-consent'].preferences_layout ?? 'box' %}
-{% set cookies_preferences_position = config.plugins['orestbida-cookie-consent'].preferences_position ?? 'left' %}
-{% set cookies_preferences_title = config.plugins['orestbida-cookie-consent'].preferences_title ?? '' %}
-{% set cookies_preferences_acceptAllBtn = config.plugins['orestbida-cookie-consent'].preferences_acceptAllBtn ?? '' %}
-{% set cookies_preferences_acceptNecessaryBtn = config.plugins['orestbida-cookie-consent'].preferences_acceptNecessaryBtn ?? '' %}
-{% set cookies_preferences_savePreferencesBtn = config.plugins['orestbida-cookie-consent'].preferences_savePreferencesBtn ?? '' %}
-{% set category_functionality = config.plugins['orestbida-cookie-consent'].categories.functionality %}
-{% set category_analytics = config.plugins['orestbida-cookie-consent'].categories.analytics %}
-{% set category_marketing = config.plugins['orestbida-cookie-consent'].categories.marketing %}
-{% set cookies_usage_title = config.plugins['orestbida-cookie-consent'].cookies_sections.usage.title ?? '' %}
-{% set cookies_usage_description = config.plugins['orestbida-cookie-consent'].cookies_sections.usage.description ?? '' %}
-{% set cookies_necessary_title = config.plugins['orestbida-cookie-consent'].cookies_sections.necessary.title ?? '' %}
-{% set cookies_necessary_description = config.plugins['orestbida-cookie-consent'].cookies_sections.necessary.description ?? '' %}
-{% set cookies_functionality_title = config.plugins['orestbida-cookie-consent'].cookies_sections.functionality.title ?? '' %}
-{% set cookies_functionality_description = config.plugins['orestbida-cookie-consent'].cookies_sections.functionality.description ?? '' %}
-{% set cookies_analytics_title = config.plugins['orestbida-cookie-consent'].cookies_sections.analytics.title ?? '' %}
-{% set cookies_analytics_description = config.plugins['orestbida-cookie-consent'].cookies_sections.analytics.description ?? '' %}
-{% set cookies_marketing_title = config.plugins['orestbida-cookie-consent'].cookies_sections.marketing.title ?? '' %}
-{% set cookies_marketing_description = config.plugins['orestbida-cookie-consent'].cookies_sections.marketing.description ?? '' %}
-{% set cookies_more_info_title = config.plugins['orestbida-cookie-consent'].cookies_sections.more_info.title ?? '' %}
-{% set cookies_more_info_description = config.plugins['orestbida-cookie-consent'].cookies_sections.more_info.description ?? '' %}
+{% set config = config.plugins['orestbida-cookie-consent'] %}
+{% set lang = lang|default('en') %}
 
 {% set layout_map_consent = {
     'box':'box',
@@ -40,15 +14,11 @@
     'bar_inline':'bar inline'
 } %}
 
-{% set c_layout = layout_map_consent[cookies_consent_layout] ?? 'box' %}
-
 {% set layout_map_preferences = {
     'box':'box',
     'bar':'bar',
     'bar_wide':'bar wide'
 } %}
-
-{% set p_layout = layout_map_preferences[cookies_preferences_layout] ?? 'box' %}
 
 {% set position_map_consent = {
     'top_center':'top center',
@@ -60,102 +30,95 @@
     'middle_center':'middle center',
     'middle_left':'middle left',
     'middle_right':'middle right',
-    
 } %}
 
-{% set c_position = position_map_consent[cookies_consent_position] ?? 'left' %}
+{% set c_layout = layout_map_consent[config.consent_layout] ?? 'box' %}
+{% set p_layout = layout_map_preferences[config.preferences_layout] ?? 'box' %}
+{% set c_position = position_map_consent[config.consent_position] ?? 'bottom_right' %}
+{% set p_position = config.preferences_position == 'right' ? 'right' : 'left' %}
 
-{% if cookies_preferences_layout != 'box' %}
-    {% set p_position = (cookies_preferences_position  == 'right' ? 'right' : 'left') %}
-{% endif %}
-
-
-/**
- * All config. options available here:
- * https://cookieconsent.orestbida.com/reference/configuration-reference.html
- */
-    CookieConsent.run({
-        guiOptions: {
-            consentModal: {
-                layout: '{{ c_layout  }}',
-                position: '{{ c_position }}',
-                equalWeightButtons: false,
-                flipButtons: false
-            },
-            preferencesModal: {
-                layout: '{{ p_layout }}',
-                position: '{{ p_position }}',
-                equalWeightButtons: false,
-                flipButtons: false
-            }
+CookieConsent.run({
+    guiOptions: {
+        consentModal: {
+            layout: '{{ c_layout }}',
+            position: '{{ c_position }}',
+            equalWeightButtons: false,
+            flipButtons: false
         },
-        categories: {
-            necessary: {
-                readOnly: true
-            },
-            {% if category_functionality == '1' %}functionality: {},{% endif %}
-            {% if category_analytics == '1' %}analytics: {},{% endif %}
-            {% if category_marketing == '1' %}marketing: {},{% endif %}
+        preferencesModal: {
+            layout: '{{ p_layout }}',
+            position: '{{ p_position }}',
+            equalWeightButtons: false,
+            flipButtons: false
+        }
+    },
+    categories: {
+        necessary: {
+            readOnly: true
         },
-
-        language: {
-            default: '{{ lang }}',
-            translations: {
-                {{ lang }}: {
-                    consentModal: {
-                        title: '{{ cookies_consent_title|raw }}',
-                        description: '{{ cookies_consent_description|raw }}',
-                        acceptAllBtn: '{{ cookies_consent_acceptAllBtn|raw }}',
-                        acceptNecessaryBtn: '{{ cookies_consent_acceptNecessaryBtn|raw }}',
-                        showPreferencesBtn: '{{ cookies_consent_showPreferencesBtn|raw }}',
-                        closeIconLabel: "X",
-                    },
-                    preferencesModal: {
-                        title: '{{ cookies_preferences_title|raw }}',
-                        acceptAllBtn: '{{ cookies_preferences_acceptAllBtn|raw }}',
-                        acceptNecessaryBtn: '{{cookies_preferences_acceptNecessaryBtn|raw }}',
-                        savePreferencesBtn: '{{ cookies_preferences_savePreferencesBtn|raw }}',
-                        closeIconLabel: "X",
-                        sections: [
-                            {
-                                title: "{{ cookies_usage_title|escape_quotes|raw }}",
-                                description: "{{ cookies_usage_description|escape_quotes|raw }}"
-                            },
-                            {
-                                title: "{{ cookies_necessary_title|escape_quotes|raw }}",
-                                description: "{{ cookies_necessary_description|escape_quotes|raw }}",
-                                linkedCategory: "necessary"
-                            },
-                            {% if category_functionality %}
-                            {
-                                title: "{{ cookies_functionality_title|escape_quotes|raw }}",
-                                description: "{{ cookies_functionality_description|escape_quotes|raw }}",
-                                linkedCategory: "functionality"
-                            },
-                            {% endif %}
-                            {% if category_analytics %}
-                            {
-                                title: "{{ cookies_analytics_title|escape_quotes|raw }}",
-                                description: "{{ cookies_analytics_description|escape_quotes|raw }}",
-                                linkedCategory: "analytics"
-                            },
-                            {% endif %}
-                            {% if category_marketing %}
-                            {
-                                title: "{{ cookies_marketing_title|escape_quotes|raw }}",
-                                description: "{{ cookies_marketing_description|escape_quotes|raw }}",
-                                linkedCategory: "marketing"
-                            },
-                            {% endif %}
-                            {% if cookies_more_info_title != '' %}
-                            {
-                                title: "{{ cookies_more_info_title|escape_quotes|raw }}",
-                                description: "{{ cookies_more_info_description|escape_quotes|raw }}"
-                            }
-                            {% endif %}
-                        ]
-                    }
+        {% if config.categories.functionality %}functionality: {},{% endif %}
+        {% if config.categories.analytics %}analytics: {},{% endif %}
+        {% if config.categories.marketing %}marketing: {},{% endif %}
+    },
+    language: {
+        default: '{{ lang }}',
+        translations: {
+            {{ lang }}: {
+                consentModal: {
+                    title: '{{ config.consent_title|raw }}',
+                    description: '{{ config.consent_description|markdown|raw }}',
+                    acceptAllBtn: '{{ config.consent_acceptAllBtn|raw }}',
+                    acceptNecessaryBtn: '{{ config.consent_acceptNecessaryBtn|raw }}',
+                    showPreferencesBtn: '{{ config.consent_showPreferencesBtn|raw }}',
+                    {% if config.consent_footer %}footer: '{{ config.consent_footer|raw }}',{% endif %}
+                    closeIconLabel: "X",
+                },
+                preferencesModal: {
+                    title: '{{ config.preferences_title|raw }}',
+                    acceptAllBtn: '{{ config.preferences_acceptAllBtn|raw }}',
+                    acceptNecessaryBtn: '{{ config.preferences_acceptNecessaryBtn|raw }}',
+                    savePreferencesBtn: '{{ config.preferences_savePreferencesBtn|raw }}',
+                    closeIconLabel: "X",
+                    sections: [
+                        {
+                            title: "{{ config.cookies_sections.usage.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.usage.description|escape_quotes|markdown|raw }}"
+                        },
+                        {
+                            title: "{{ config.cookies_sections.necessary.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.necessary.description|escape_quotes|markdown|raw }}",
+                            linkedCategory: "necessary"
+                        },
+                        {% if config.categories.functionality %}
+                        {
+                            title: "{{ config.cookies_sections.functionality.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.functionality.description|escape_quotes|markdown|raw }}",
+                            linkedCategory: "functionality"
+                        },
+                        {% endif %}
+                        {% if config.categories.analytics %}
+                        {
+                            title: "{{ config.cookies_sections.analytics.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.analytics.description|escape_quotes|markdown|raw }}",
+                            linkedCategory: "analytics"
+                        },
+                        {% endif %}
+                        {% if config.categories.marketing %}
+                        {
+                            title: "{{ config.cookies_sections.marketing.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.marketing.description|escape_quotes|markdown|raw }}",
+                            linkedCategory: "marketing"
+                        },
+                        {% endif %}
+                        {% if config.cookies_sections.more_info.title %}
+                        {
+                            title: "{{ config.cookies_sections.more_info.title|escape_quotes|raw }}",
+                            description: "{{ config.cookies_sections.more_info.description|escape_quotes|markdown|raw }}"
+                        }
+                        {% endif %}
+                    ]
                 }
             }
         }
-    });
+    }
+});

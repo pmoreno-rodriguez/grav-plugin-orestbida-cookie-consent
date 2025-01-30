@@ -35,6 +35,8 @@ en:
     CONSENT_TITLE_PLACEHOLDER: We use cookies
     CONSENT_DESCRIPTION: Consent Modal Description
     CONSENT_DESCRIPTION_PLACEHOLDER: 'We use cookies to ensure that we give the best user experience on our website. If you want more information, consult our Cookies Policy'
+    CONSENT_FOOTER: Form Footer
+    CONSENT_FOOTER_HELP: A small area where you can place your links (impressum, privacy policy ...)
     CONSENT_ACCEPTALLBTN: '<strong>Accept All</strong> button text'
     CONSENT_ACCEPTNECESSARYBTN: '<strong>Reject All</strong> button text'
     CONSENT_SHOWPREFERENCESBTN: '<strong>Manage Preferences</strong> button text'
@@ -87,3 +89,95 @@ en:
     MORE_INFO_TITLE: 'More Info Title'
     MORE_INFO_PLACEHOLDER: 'More Information'
     MORE_INFO_DESCRIPTIOIN_PLACEHOLDER: 'For any query in relation to my policy on cookies and your choices, please <a href="#>contact me</a>.'
+
+es:
+  PLUGIN_ORESTBIDA_COOKIE_CONSENT:
+    TAB: Cookies
+    MAIN: Opciones principales de consentimiento de cookies
+    ENABLED: Activar banner de consentimiento de cookies
+    CDN_HELP: "Incluir archivos JavaScript y CSS desde el CDN oficial o local."
+    THEME: 
+      LABEL: Tema
+      DEFAULT: Predeterminado
+      LIGHTFUNKY: Light-Funky
+      DARKTURQUOISE: Dark Turquoise
+      ELEGANT: Elegant
+    CONSENT_MODAL_SETTINGS: Configuración del modal de consentimiento
+    CONSENT_LAYOUT:
+      LABEL: Diseño del modal de consentimiento
+      BOX: Caja
+      BOXINLINE: Caja en línea
+      BOXWIDE: Caja ancha
+      CLOUD: Nube
+      CLOUDINLINE: Nube en línea
+      BAR: Barra
+      BARINLINE: Barra en línea
+    CONSENT_POSITION:
+      LABEL: Posición del modal de consentimiento
+      BOTTOM_CENTER: Centro Inferior
+      BOTTOM_LEFT: Inferior Izquierda
+      BOTTOM_RIGHT: Inferior Derecha
+      TOP_CENTER: Centro Superior
+      TOP_LEFT: Superior Izquierda
+      TOP_RIGHT: Superior Derecha
+      MIDDLE_CENTER: Centro Medio
+      MIDDLE_LEFT: Medio Izquierda
+      MIDDLE_RIGHT: Medio Derecha
+    CONSENT_TITLE: Título del modal de consentimiento
+    CONSENT_TITLE_PLACEHOLDER: Usamos cookies
+    CONSENT_DESCRIPTION: Descripción del modal de consentimiento
+    CONSENT_DESCRIPTION_PLACEHOLDER: 'Usamos cookies para asegurarnos de que brindamos la mejor experiencia de usuario en nuestro sitio web. Si deseas más información, consulta nuestra Política de Cookies'
+    CONSENT_FOOTER: Pie de formulario
+    CONSENT_FOOTER_HELP: Un pequeño espacio donde puedes colocar tus enlaces (aviso legal, política de privacidad...)
+    CONSENT_ACCEPTALLBTN: 'Texto del botón <strong>Aceptar Todas</strong>'
+    CONSENT_ACCEPTNECESSARYBTN: 'Texto del botón <strong>Rechazar Todas</strong>'
+    CONSENT_SHOWPREFERENCESBTN: 'Texto del botón <strong>Gestionar Preferencias</strong>'
+    PREFERENCES_MODAL_SETTINGS: Configuración del modal de preferencias
+    PREFERENCES_LAYOUT:
+      LABEL: Diseño del modal de preferencias
+      BOX: Caja
+      BAR: Barra
+      BARWIDE: Barra Ancha
+    PREFERENCES_POSITION:
+      LABEL: Posición de las preferencias (solo para diseño de Barra)
+      LEFT: Izquierda
+      RIGHT: Derecha
+    PREFERENCES_TITLE: Título de la barra de preferencias de consentimiento
+    PREFERENCES_TITLE_PLACEHOLDER: Centro de Preferencias de Consentimiento
+    PREFERENCES_ACCEPTALLBTN: 'Texto del botón <strong>Aceptar Todas</strong>'
+    PREFERENCES_ACCEPTNECESSARYBTN: 'Texto del botón <strong>Rechazar Todas</strong>'
+    PREFERENCES_SAVEPREFERENCESBTN: 'Texto del botón <strong>Guardar Preferencias</strong>'
+    # Etiquetas Comunes y Texto de Ayuda
+    CATEGORIES_LABEL: 'Categorías'
+    CATEGORIES_HELP: 'Categorías de consentimiento de cookies'
+    DESCRIPTION_LABEL: 'Descripción'
+    DESCRIPTION_PLACEHOLDER: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
+    # Opciones
+    NECESSARY: 'Necesarias'
+    FUNCTIONALITY: 'Funcionalidad'
+    ANALYTICS: 'Analítica'
+    MARKETING: 'Marketing'
+    MORE_INFO: 'Más Información'
+    NECESSARY_HELP: 'Cookies necesarias. No se permite desactivarlas'
+    # Contenido de las Secciones
+    SECTIONS_CONTENT_TITLE: Contenido de las secciones
+    SECTIONS_CONTENT_LABEL: 'Sección de Cookies'
+    USAGE: 'Uso de Cookies'
+    NECESSARY_COOKIES: 'Cookies Necesarias'
+    FUNCTIONALITY_COOKIES: 'Cookies de Funcionalidad'
+    ANALYTICS_COOKIES: 'Cookies de Analítica'
+    MARKETING_COOKIES: 'Cookies de Marketing'          
+    # Títulos y Marcadores de Posición para Cada Sección
+    USAGE_TITLE: 'Título de Uso'
+    USAGE_PLACEHOLDER: 'Uso de Cookies'
+    NECESSARY_TITLE: 'Título de Necesarias'
+    NECESSARY_PLACEHOLDER: 'Cookies Estrictamente Necesarias'
+    FUNCTIONALITY_TITLE: 'Título de Funcionalidad'
+    FUNCTIONALITY_PLACEHOLDER: 'Cookies de Funcionalidad'
+    ANALYTICS_TITLE: 'Título de Analítica'
+    ANALYTICS_PLACEHOLDER: 'Cookies de Analítica'
+    MARKETING_TITLE: 'Título de Marketing'
+    MARKETING_PLACEHOLDER: 'Cookies de Publicidad'
+    MORE_INFO_TITLE: 'Título de Más Información'
+    MORE_INFO_PLACEHOLDER: 'Más Información'
+    MORE_INFO_DESCRIPTIOIN_PLACEHOLDER: 'Para cualquier consulta en relación con mi política de cookies y tus elecciones, por favor <a href="#>contáctame</a>.'
