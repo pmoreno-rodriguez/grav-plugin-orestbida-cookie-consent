@@ -65,25 +65,25 @@ Here is the default configuration with explanations for each option:
 ```yaml
 enabled: true                  # Enable or disable the plugin.
 cdn: true                      # Use the CDN to load the Cookie Consent library.
-theme: default                 # Choose a theme for the cookie banner (options: default, light-funky, dark-turquoise, elegant).
+theme:                         # Choose a theme for the cookie banner (options: default, light-funky, dark-turquoise, elegant).
 
 # Consent Modal Settings
-consent_layout: block          # Layout for the consent modal (options: box, box_inline, box_wide, cloud, cloud_inline, bar, bar_inline).
-consent_position: bottom_right # Position of the consent modal (options: top_center, top_left, top_right, bottom_center, bottom_left, bottom_right, middle_center, middle_left, middle_right).
-consent_title: "We use cookies!" # Title of the consent modal.
-consent_description: "This website uses cookies to ensure you get the best experience on our website." # Description in the consent modal.
-consent_acceptAllBtn: "Accept all" # Text for the "Accept All" button.
-consent_acceptNecessaryBtn: "Reject all" # Text for the "Reject All" button.
-consent_showPreferencesBtn: "Manage preferences" # Text for the "Manage Preferences" button.
-consent_footer: ""             # Footer text for the consent modal (supports Markdown).
+consent_layout:               # Layout for the consent modal (options: box, box_inline, box_wide, cloud, cloud_inline, bar, bar_inline).
+consent_position:             # Position of the consent modal (options: top_center, top_left, top_right, bottom_center, bottom_left, bottom_right, middle_center,middle_left, middle_right).
+consent_title:                # Title of the consent modal.
+consent_description:          # Description in the consent modal.
+consent_acceptAllBtn:         # Text for the "Accept All" button.
+consent_acceptNecessaryBtn:   # Text for the "Reject All" button.
+consent_showPreferencesBtn:   # Text for the "Manage Preferences" button.
+consent_footer:               # Footer text for the consent modal (supports Markdown).
 
 # Preferences Modal Settings
-preferences_layout: box        # Layout for the preferences modal (options: box, bar, bar_wide).
-preferences_position: left     # Position of the preferences modal (options: left, right).
-preferences_title: "Cookie Preferences" # Title of the preferences modal.
-preferences_acceptAllBtn: "Accept all" # Text for the "Accept All" button in the preferences modal.
-preferences_acceptNecessaryBtn: "Reject all" # Text for the "Reject All" button in the preferences modal.
-preferences_savePreferencesBtn: "Save preferences" # Text for the "Save Preferences" button.
+preferences_layout:           # Layout for the preferences modal (options: box, bar, bar_wide).
+preferences_position:         # Position of the preferences modal (options: left, right).
+preferences_title:            # Title of the preferences modal.
+preferences_acceptAllBtn:     # Text for the "Accept All" button in the preferences modal.
+preferences_acceptNecessaryBtn:   # Text for the "Reject All" button in the preferences modal.
+preferences_savePreferencesBtn:   # Text for the "Save Preferences" button.
 
 # Cookie Categories
 categories:
@@ -94,24 +94,15 @@ categories:
 
 # Sections Content
 cookies_sections:
-  usage:
-    title: "Usage"             # Title for the "Usage" section.
-    description: "This website uses cookies to ensure you get the best experience." # Description for the "Usage" section.
-  necessary:
-    title: "Necessary Cookies" # Title for the "Necessary Cookies" section.
-    description: "These cookies are essential for the website to function properly." # Description for the "Necessary Cookies" section.
-  functionality:
-    title: "Functionality Cookies" # Title for the "Functionality Cookies" section.
-    description: "These cookies enable additional functionality like remembering preferences." # Description for the "Functionality Cookies" section.
-  analytics:
-    title: "Analytics Cookies" # Title for the "Analytics Cookies" section.
-    description: "These cookies help us analyze how visitors use the website." # Description for the "Analytics Cookies" section.
-  marketing:
-    title: "Marketing Cookies" # Title for the "Marketing Cookies" section.
-    description: "These cookies are used to deliver personalized advertisements." # Description for the "Marketing Cookies" section.
-  more_info:
-    title: "More Information"  # Title for the "More Information" section.
-    description: "For more details about our cookie policy, please visit our [Privacy Policy](#)." # Description for the "More Information" section.
+    # For each section, you can set two values:
+    title:                    # Title of the section
+    description:              # Description for the section
+
+# Advanced Settings
+autoshow: true  # Automatically show the consent modal if consent is not valid.
+show_delay: # Set the delay in milliseconds before the cookie consent banner is shown.
+hide_from_bots: # Stops the plugin's execution when a bot/crawler is detected, to prevent them from indexing the modal's content.
+disable_page_interaction: true # Creates a dark overlay and blocks the page scroll until consent is expressed.
 ```
 
 ## Usage
