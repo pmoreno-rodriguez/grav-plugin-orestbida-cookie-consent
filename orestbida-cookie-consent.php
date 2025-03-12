@@ -31,7 +31,7 @@ class OrestbidaCookieConsentPlugin extends Plugin
     /**
      * Current version of the cookieconsent library to use with CDN.
      */
-    private const CDN_VERSION = '3.0.1';
+    private const CDN_VERSION = '3.1.0';
 
     /**
      * Returns a list of events this plugin is subscribed to.
