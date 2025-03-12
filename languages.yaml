@@ -10,6 +10,14 @@ en:
       LIGHTFUNKY: Light-Funky
       DARKTURQUOISE: Dark Turquoise
       ELEGANT: Elegant
+    AUTOSHOW: AutoShow
+    AUTOSHOW_HELP: Automatically show the consent modal if consent is not valid
+    SHOW_DELAY: Show Delay (ms)
+    SHOW_DELAY_HELP: Set the delay in milliseconds before the cookie consent banner is shown
+    HIDE_FROM_BOTS: Hide From Bots
+    HIDE_FROM_BOTS_HELP: Stops the plugin's execution when a bot/crawler is detected, to prevent them from indexing the modal's content
+    DISABLE_PAGE_INTERACTION: Disable Page Interaction
+    DISABLE_PAGE_INTERACTION_HELP: Creates a dark overlay and blocks the page scroll until consent is expressed
     CONSENT_MODAL_SETTINGS: Consent Modal Settings
     CONSENT_LAYOUT:
       LABEL: Consent Modal Layout
@@ -102,6 +110,14 @@ es:
       LIGHTFUNKY: Light-Funky
       DARKTURQUOISE: Dark Turquoise
       ELEGANT: Elegant
+    AUTOSHOW: Mostrar automáticamente
+    AUTOSHOW_HELP: Mostrar automáticamente el formulario de consentimiento si el consentimiento no es válido
+    SHOW_DELAY: Retraso para mostrar (ms)
+    SHOW_DELAY_HELP: Establece el retraso en milisegundos antes de que se muestre el banner de consentimiento de cookies
+    HIDE_FROM_BOTS: Ocultar de bots
+    HIDE_FROM_BOTS_HELP: Detiene la ejecución del complemento cuando se detecta un bot/rastreador para evitar que indexe el contenido del modal
+    DISABLE_PAGE_INTERACTION: Desactivar interacción en la página
+    DISABLE_PAGE_INTERACTION_HELP: Crea una superposición oscura y bloquea el desplazamiento hasta que se exprese el consentimiento
     CONSENT_MODAL_SETTINGS: Configuración del modal de consentimiento
     CONSENT_LAYOUT:
       LABEL: Diseño del modal de consentimiento

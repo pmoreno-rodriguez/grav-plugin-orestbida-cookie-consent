@@ -1,43 +1,69 @@
-{# COOKIES CONSENT SETTINGS #}
+{# COOKIES CONSENT SETTINGS
+   This template generates the JavaScript configuration for the Orestbida Cookie Consent banner.
+   It handles layout, position, and language settings based on the plugin configuration.
+#}
 
 {% set config = config.plugins['orestbida-cookie-consent'] %}
 {% set lang = lang|default('en') %}
 
-{% set layout_map_consent = {
-    'box':'box',
-    'box_inline':'box inline',
-    'inline':'inline',
-    'box_wide':'box wide',
-    'cloud':'cloud',
-    'cloud_inline':'cloud inline',
-    'bar':'bar',
-    'bar_inline':'bar inline'
+{# Layout and position mapping from config values to library values #}
+{% set layout_map = {
+    'consent': {
+        'box': 'box',
+        'box_inline': 'box inline',
+        'inline': 'inline',
+        'box_wide': 'box wide',
+        'cloud': 'cloud',
+        'cloud_inline': 'cloud inline',
+        'bar': 'bar',
+        'bar_inline': 'bar inline'
+    },
+    'preferences': {
+        'box': 'box',
+        'bar': 'bar',
+        'bar_wide': 'bar wide'
+    }
 } %}
 
-{% set layout_map_preferences = {
-    'box':'box',
-    'bar':'bar',
-    'bar_wide':'bar wide'
+{% set position_map = {
+    'consent': {
+        'top_center': 'top center',
+        'top_left': 'top left',
+        'top_right': 'top right',
+        'bottom_center': 'bottom center',
+        'bottom_left': 'bottom left',
+        'bottom_right': 'bottom right',
+        'middle_center': 'middle center',
+        'middle_left': 'middle left',
+        'middle_right': 'middle right'
+    },
+    'preferences': {
+        'left': 'left',
+        'right': 'right'
+    }
 } %}
 
-{% set position_map_consent = {
-    'top_center':'top center',
-    'top_left':'top left',
-    'top_right':'top right',
-    'bottom_center':'bottom center',
-    'bottom_left':'bottom left',
-    'bottom_right':'bottom right',
-    'middle_center':'middle center',
-    'middle_left':'middle left',
-    'middle_right':'middle right',
+{# Get layout and position values with defaults #}
+{% set c_layout = layout_map.consent[config.consent_layout] ?? 'box' %}
+{% set p_layout = layout_map.preferences[config.preferences_layout] ?? 'box' %}
+{% set c_position = position_map.consent[config.consent_position] ?? 'bottom_right' %}
+{% set p_position = position_map.preferences[config.preferences_position] ?? 'left' %}
+
+{# Define available cookie categories #}
+{% set available_categories = {
+    'necessary': { 'readOnly': true },
+    'functionality': { 'enabled': config.categories.functionality ?? false },
+    'analytics': { 'enabled': config.categories.analytics ?? false },
+    'marketing': { 'enabled': config.categories.marketing ?? false }
 } %}
 
-{% set c_layout = layout_map_consent[config.consent_layout] ?? 'box' %}
-{% set p_layout = layout_map_preferences[config.preferences_layout] ?? 'box' %}
-{% set c_position = position_map_consent[config.consent_position] ?? 'bottom_right' %}
-{% set p_position = config.preferences_position == 'right' ? 'right' : 'left' %}
-
+{# JavaScript configuration for cookie consent #}
 CookieConsent.run({
+    {# Global options #}
+    autoShow: {{ config.autoshow is defined and config.autoshow ? 'true' : 'false' }},
+    hideFromBots: {{ config.hideFromBots is defined and config.hideFromBots ? 'true' : 'false' }},
+    disablePageInteraction: {{ config.disablePageInteraction is defined and config.disablePageInteraction ? 'true' : 'false' }},
+
     guiOptions: {
         consentModal: {
             layout: '{{ c_layout }}',
@@ -53,12 +79,12 @@ CookieConsent.run({
         }
     },
     categories: {
-        necessary: {
-            readOnly: true
-        },
-        {% if config.categories.functionality %}functionality: {},{% endif %}
-        {% if config.categories.analytics %}analytics: {},{% endif %}
-        {% if config.categories.marketing %}marketing: {},{% endif %}
+        necessary: {{ available_categories.necessary|json_encode|raw }}
+        {% for category, settings in available_categories %}
+            {% if category != 'necessary' and settings.enabled %}
+                ,{{ category }}: {}
+            {% endif %}
+        {% endfor %}
     },
     language: {
         default: '{{ lang }}',
@@ -71,7 +97,6 @@ CookieConsent.run({
                     acceptNecessaryBtn: '{{ config.consent_acceptNecessaryBtn|raw }}',
                     showPreferencesBtn: '{{ config.consent_showPreferencesBtn|raw }}',
                     {% if config.consent_footer %}footer: '{{ config.consent_footer|raw }}',{% endif %}
-                    closeIconLabel: "X",
                 },
                 preferencesModal: {
                     title: '{{ config.preferences_title|raw }}',
@@ -80,36 +105,30 @@ CookieConsent.run({
                     savePreferencesBtn: '{{ config.preferences_savePreferencesBtn|raw }}',
                     closeIconLabel: "X",
                     sections: [
+                        {# Usage section is always present #}
                         {
                             title: "{{ config.cookies_sections.usage.title|escape_quotes|raw }}",
                             description: "{{ config.cookies_sections.usage.description|escape_quotes|markdown|raw }}"
                         },
+                        {# Necessary category section is always present #}
                         {
                             title: "{{ config.cookies_sections.necessary.title|escape_quotes|raw }}",
                             description: "{{ config.cookies_sections.necessary.description|escape_quotes|markdown|raw }}",
                             linkedCategory: "necessary"
                         },
-                        {% if config.categories.functionality %}
-                        {
-                            title: "{{ config.cookies_sections.functionality.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.functionality.description|escape_quotes|markdown|raw }}",
-                            linkedCategory: "functionality"
-                        },
-                        {% endif %}
-                        {% if config.categories.analytics %}
-                        {
-                            title: "{{ config.cookies_sections.analytics.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.analytics.description|escape_quotes|markdown|raw }}",
-                            linkedCategory: "analytics"
-                        },
-                        {% endif %}
-                        {% if config.categories.marketing %}
-                        {
-                            title: "{{ config.cookies_sections.marketing.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.marketing.description|escape_quotes|markdown|raw }}",
-                            linkedCategory: "marketing"
-                        },
-                        {% endif %}
+                        
+                        {# Generate optional category sections dynamically #}
+                        {% for category, settings in available_categories %}
+                            {% if category != 'necessary' and settings.enabled and config.cookies_sections[category] is defined %}
+                                {
+                                    title: "{{ config.cookies_sections[category].title|escape_quotes|raw }}",
+                                    description: "{{ config.cookies_sections[category].description|escape_quotes|markdown|raw }}",
+                                    linkedCategory: "{{ category }}"
+                                },
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {# More info section if available #}
                         {% if config.cookies_sections.more_info.title %}
                         {
                             title: "{{ config.cookies_sections.more_info.title|escape_quotes|raw }}",
@@ -122,3 +141,8 @@ CookieConsent.run({
         }
     }
 });
+{% set show_delay = config.plugins['orestbida-cookie-consent'].show_delay|default(3000) %}
+
+setTimeout(function() {
+    CookieConsent.show();
+}, {{ show_delay }});
