@@ -1,7 +1,7 @@
 name: Orestbida Cookie Consent
 slug: orestbida-cookie-consent
 type: plugin
-version: 1.0.0
+version: 2.0.0
 description: This grav plugin allows you to manage the cookies used in your site with the popular js lib Cookie Consent by Orestbida.
 icon: plug
 author:
@@ -58,6 +58,53 @@ form:
         light-funky: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.LIGHTFUNKY
         dark-turquoise: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.DARKTURQUOISE
         elegant: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.ELEGANT
+    
+    autoshow:
+      type: toggle
+      label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.AUTOSHOW
+      help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.AUTOSHOW_HELP
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    
+    show_delay:
+      type: number
+      label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SHOW_DELAY
+      help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SHOW_DELAY_HELP
+      default: 3000
+      size: small
+      validate:
+        type: number
+        min: 0
+        step: 500
+    
+    hideFromBots:
+      type: toggle
+      label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.HIDE_FROM_BOTS
+      help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.HIDE_FROM_BOTS_HELP
+      highlight: 0
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    
+    disablePageInteraction:
+      type: toggle
+      label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DISABLE_PAGE_INTERACTION
+      help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DISABLE_PAGE_INTERACTION_HELP
+      highlight: 0
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
 
     cookies_settings:
       type: columns
@@ -106,6 +153,7 @@ form:
               placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_TITLE_PLACEHOLDER
               validate:
                 type: text
+                required: true
 
             consent_description:
               type: textarea
@@ -115,6 +163,7 @@ form:
               markdown: true
               validate:
                 type: text
+                required: true
 
             consent_acceptAllBtn:
               type: text
@@ -127,12 +176,14 @@ form:
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_ACCEPTNECESSARYBTN
               validate:
                 type: text
+                required: true
 
             consent_showPreferencesBtn:
               type: text
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_SHOWPREFERENCESBTN
               validate:
                 type: text
+                required: true
 
             consent_footer:
               type: text
