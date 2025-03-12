@@ -6,37 +6,39 @@ use Twig\TwigFilter;
 
 /**
  * Class OrestbidaCookieConsentPlugin
+ * @category   Extensions
+ * @package    Grav\Plugin
+ * @author     Pedro Moreno <https://github.com/pmoreno-rodriguez>
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link       https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent
  * 
  * This plugin integrates the "Cookie Consent" library by Orestbida into Grav,
  * allowing website owners to manage cookie consent in compliance with GDPR and other privacy regulations.
  * It provides a customizable banner for users to accept or reject cookies and supports multiple cookie categories.
- * 
- * @package Grav\Plugin
  */
 class OrestbidaCookieConsentPlugin extends Plugin
 {
     /**
      * Base path for plugin assets (CSS and JS files).
-     *
-     * @var string
      */
-    private $assetsPath = 'plugin://orestbida-cookie-consent/assets/';
+    private const ASSETS_PATH = 'plugin://orestbida-cookie-consent/assets/';
 
     /**
      * Twig template used to initialize the cookie consent banner.
-     *
-     * @var string
      */
-    private $initTemplate = 'partials/orestbida-cookieconsent.html.twig';
+    private const INIT_TEMPLATE = 'partials/orestbida-cookieconsent.html.twig';
+
+    /**
+     * Current version of the cookieconsent library to use with CDN.
+     */
+    private const CDN_VERSION = '3.0.1';
 
     /**
      * Returns a list of events this plugin is subscribed to.
      *
-     * The plugin listens to the `onPluginsInitialized` event to initialize itself.
-     * 
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'onPluginsInitialized' => ['onPluginsInitialized', 0]
@@ -45,11 +47,8 @@ class OrestbidaCookieConsentPlugin extends Plugin
 
     /**
      * Initializes the plugin.
-     *
-     * This method checks if the plugin is running in the admin panel. If so, it stops execution.
-     * Otherwise, it enables the necessary events for the plugin to function on the frontend.
      */
-    public function onPluginsInitialized()
+    public function onPluginsInitialized(): void
     {
         // Do not proceed if the plugin is running in the admin panel.
         if ($this->isAdmin()) {
@@ -58,76 +57,137 @@ class OrestbidaCookieConsentPlugin extends Plugin
 
         // Enable the necessary events for the plugin to work on the frontend.
         $this->enable([
-            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0], // Add plugin templates to Twig paths.
-            'onTwigSiteVariables' => ['onTwigSiteVariables', 0], // Add CSS, JS, and inline scripts.
-            'onTwigExtensions' => ['onTwigExtensions', 0], // Add custom Twig filters.
+            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
+            'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
+            'onTwigExtensions' => ['onTwigExtensions', 0],
         ]);
     }
 
     /**
      * Adds the plugin's template directory to Twig's search paths.
-     *
-     * This allows Twig to locate and render the plugin's templates.
      */
-    public function onTwigTemplatePaths()
+    public function onTwigTemplatePaths(): void
     {
-        // Add the plugin's templates directory to Twig's paths.
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
     }
 
     /**
      * Adds CSS, JS, and inline scripts to the site.
-     *
-     * This method loads the necessary assets for the cookie consent banner, including:
-     * - CSS themes for the banner.
-     * - The Cookie Consent library (either from a CDN or local files).
-     * - Inline JavaScript to initialize the banner with user-defined settings.
      */
-    public function onTwigSiteVariables()
+    public function onTwigSiteVariables(): void
     {
         $twig = $this->grav['twig'];
         $assets = $this->grav['assets'];
+        
+        // Validate and get configuration
+        $config = $this->validateConfig();
+        $lang = $this->getCurrentLanguage();
+
+        // Load theme CSS if specified
+        $this->loadThemeCSS($assets, $config);
+        
+        // Load library files (CDN or local)
+        $this->loadLibraryFiles($assets, $config);
+
+        // Add initialization script
+        $this->addInitScript($twig, $assets, $config, $lang);
+    }
+
+    /**
+     * Validates and returns plugin configuration.
+     * 
+     * @return array Validated configuration
+     */
+    private function validateConfig(): array
+    {
         $config = $this->config->toArray();
+        
+        // Validate required settings (could add more validation logic here)
+        if (!isset($config['plugins']['orestbida-cookie-consent'])) {
+            throw new \RuntimeException('Plugin configuration not found');
+        }
+        
+        return $config;
+    }
 
-        // Get plugin configuration options.
-        $cdnEnabled = $this->config->get('plugins.orestbida-cookie-consent.cdn');
+    /**
+     * Gets the current language from Grav or returns default.
+     * 
+     * @return string Language code
+     */
+    private function getCurrentLanguage(): string
+    {
+        return $this->grav['language']->getLanguage() ?: 'en';
+    }
+
+    /**
+     * Loads the theme CSS if specified in configuration.
+     * 
+     * @param object $assets Grav assets manager
+     * @param array $config Plugin configuration
+     */
+    private function loadThemeCSS($assets, array $config): void
+    {
         $theme = $this->config->get('plugins.orestbida-cookie-consent.theme');
-        $lang = $this->grav['language']->getLanguage() ?: 'en'; // Default to English if no language is set.
-
-        // Load the selected theme CSS if a theme is specified.
+        
         if ($theme) {
-            $assets->addCss($this->assetsPath . 'css/cookies_themes/' . $theme . '.css');
+            $assets->addCss(self::ASSETS_PATH . 'css/cookies_themes/' . $theme . '.css');
         }
+    }
 
-        // Load the Cookie Consent library from a CDN or local files based on configuration.
+    /**
+     * Loads the library files from CDN or local path.
+     * 
+     * @param object $assets Grav assets manager
+     * @param array $config Plugin configuration
+     */
+    private function loadLibraryFiles($assets, array $config): void
+    {
+        $cdnEnabled = $this->config->get('plugins.orestbida-cookie-consent.cdn');
+        
         if ($cdnEnabled) {
-            $assets->addCss("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css");
-            $assets->addJs("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js", ['group' => 'bottom']);
+            $assets->addCss("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.css");
+            $assets->addJs("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.umd.js", ['group' => 'bottom']);
         } else {
-            $assets->addCss($this->assetsPath . 'css/cookieconsent.css');
-            $assets->addJs($this->assetsPath . 'js/cookieconsent.umd.js', ['group' => 'bottom']);
+            $assets->addCss(self::ASSETS_PATH . 'css/cookieconsent.css');
+            $assets->addJs(self::ASSETS_PATH . 'js/cookieconsent.umd.js', ['group' => 'bottom']);
         }
+    }
 
-        // Render the initialization script using Twig and pass configuration and language variables.
+    /**
+     * Adds the initialization script to the page.
+     * 
+     * @param object $twig Twig environment
+     * @param object $assets Grav assets manager
+     * @param array $config Plugin configuration
+     * @param string $lang Current language
+     */
+    private function addInitScript($twig, $assets, array $config, string $lang): void
+    {
         $assets->addInlineJs(
-            $twig->twig->render($this->initTemplate, ['config' => $config, 'lang' => $lang]),
-            ['group' => 'bottom'] // Ensure the script is added before the closing </body> tag.
+            $twig->twig->render(self::INIT_TEMPLATE, ['config' => $config, 'lang' => $lang]),
+            ['group' => 'bottom']
         );
     }
 
     /**
      * Adds custom Twig filters to the Twig environment.
-     *
-     * This method registers a custom Twig filter (`escape_quotes`) that escapes double quotes
-     * in strings, which is useful for embedding text in JavaScript.
      */
-    public function onTwigExtensions()
+    public function onTwigExtensions(): void
     {
-        // Add a custom Twig filter to escape double quotes in strings.
         $this->grav['twig']->twig()->addFilter(
-            new TwigFilter('escape_quotes', function ($text) {
-                return str_replace('"', '\\"', $text); // Escape double quotes for JavaScript compatibility.
-            })
+            new TwigFilter('escape_quotes', [$this, 'escapeQuotes'])
         );
+    }
+
+    /**
+     * Escapes double quotes in strings for JavaScript.
+     * 
+     * @param string $text Text to escape
+     * @return string Escaped text
+     */
+    public function escapeQuotes(string $text): string
+    {
+        return str_replace('"', '\\"', $text);
     }
 }
