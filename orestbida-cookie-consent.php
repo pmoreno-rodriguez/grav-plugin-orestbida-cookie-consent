@@ -186,8 +186,11 @@ class OrestbidaCookieConsentPlugin extends Plugin
      * @param string $text Text to escape
      * @return string Escaped text
      */
-    public function escapeQuotes(string $text): string
-    {
-        return str_replace('"', '\\"', $text);
-    }
+    public function escapeQuotes(?string $text): string
+	{
+		if ($text === null) {
+			return '';
+		}
+		return str_replace('"', '\\"', $text);
+	}
 }
