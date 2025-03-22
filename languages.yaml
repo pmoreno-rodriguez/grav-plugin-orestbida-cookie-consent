@@ -44,6 +44,8 @@ en:
     CONSENT_DESCRIPTION: Consent Modal Description
     CONSENT_DESCRIPTION_PLACEHOLDER: 'We use cookies to ensure that we give the best user experience on our website. If you want more information, consult our Cookies Policy'
     CONSENT_FOOTER: Form Footer
+    CONSENT_FOOTER_PLACEHOLDER: '<a href="#path-to-impressum.html" target="_blank">Impressum</a>\n
+                                <a href="#path-to-privacy-policy.html" target="_blank">Privacy Policy</a>'
     CONSENT_FOOTER_HELP: A small area where you can place your links (impressum, privacy policy ...)
     CONSENT_ACCEPTALLBTN: '<strong>Accept All</strong> button text'
     CONSENT_ACCEPTNECESSARYBTN: '<strong>Reject All</strong> button text'
@@ -77,22 +79,21 @@ en:
     NECESSARY_HELP: 'Necessary cookies. Not allowed to disable'
     # Sections Content
     SECTIONS_CONTENT_TITLE: Sections content
-    SECTIONS_CONTENT_LABEL: 'Cookies Section'
     USAGE: 'Cookies Usage'
     NECESSARY_COOKIES: 'Necessary Cookies'
     FUNCTIONALITY_COOKIES: 'Functionality Cookies'
     ANALYTICS_COOKIES: 'Analytics Cookies'
     MARKETING_COOKIES: 'Marketing Cookies'          
     # Titles and Placeholders for Each Section
-    USAGE_TITLE: 'Usage Title'
+    USAGE_TITLE: 'Cookies Usage Title'
     USAGE_PLACEHOLDER: 'Cookie Usage'
-    NECESSARY_TITLE: 'Necessary Title'
+    NECESSARY_TITLE: 'Cookies Necessary Title'
     NECESSARY_PLACEHOLDER: 'Strictly Necessary Cookies'
-    FUNCTIONALITY_TITLE: 'Functionality Title'
+    FUNCTIONALITY_TITLE: 'Cookies Functionality Title'
     FUNCTIONALITY_PLACEHOLDER: 'Functionality Cookies'
-    ANALYTICS_TITLE: 'Analytics Title'
+    ANALYTICS_TITLE: 'Cookies Analytics Title'
     ANALYTICS_PLACEHOLDER: 'Analytics Cookies'
-    MARKETING_TITLE: 'Marketing Title'
+    MARKETING_TITLE: 'Cookies Marketing Title'
     MARKETING_PLACEHOLDER: 'Advertisement Cookies'
     MORE_INFO_TITLE: 'More Info Title'
     MORE_INFO_PLACEHOLDER: 'More Information'
@@ -144,6 +145,8 @@ es:
     CONSENT_DESCRIPTION: Descripción del modal de consentimiento
     CONSENT_DESCRIPTION_PLACEHOLDER: 'Usamos cookies para asegurarnos de que brindamos la mejor experiencia de usuario en nuestro sitio web. Si deseas más información, consulta nuestra Política de Cookies'
     CONSENT_FOOTER: Pie de formulario
+    CONSENT_FOOTER_PLACEHOLDER: '<a href="#path-to-impressum.html" target="_blank">Aviso legal</a>\n
+                                <a href="#path-to-privacy-policy.html" target="_blank">Política de privacidad</a>'
     CONSENT_FOOTER_HELP: Un pequeño espacio donde puedes colocar tus enlaces (aviso legal, política de privacidad...)
     CONSENT_ACCEPTALLBTN: 'Texto del botón <strong>Aceptar Todas</strong>'
     CONSENT_ACCEPTNECESSARYBTN: 'Texto del botón <strong>Rechazar Todas</strong>'
@@ -177,22 +180,21 @@ es:
     NECESSARY_HELP: 'Cookies necesarias. No se permite desactivarlas'
     # Contenido de las Secciones
     SECTIONS_CONTENT_TITLE: Contenido de las secciones
-    SECTIONS_CONTENT_LABEL: 'Sección de Cookies'
     USAGE: 'Uso de Cookies'
     NECESSARY_COOKIES: 'Cookies Necesarias'
     FUNCTIONALITY_COOKIES: 'Cookies de Funcionalidad'
     ANALYTICS_COOKIES: 'Cookies de Analítica'
     MARKETING_COOKIES: 'Cookies de Marketing'          
     # Títulos y Marcadores de Posición para Cada Sección
-    USAGE_TITLE: 'Título de Uso'
+    USAGE_TITLE: 'Título de Uso de Cookies'
     USAGE_PLACEHOLDER: 'Uso de Cookies'
-    NECESSARY_TITLE: 'Título de Necesarias'
+    NECESSARY_TITLE: 'Título de Cookies Necesarias'
     NECESSARY_PLACEHOLDER: 'Cookies Estrictamente Necesarias'
-    FUNCTIONALITY_TITLE: 'Título de Funcionalidad'
+    FUNCTIONALITY_TITLE: 'Título de Cookies de Funcionalidad'
     FUNCTIONALITY_PLACEHOLDER: 'Cookies de Funcionalidad'
-    ANALYTICS_TITLE: 'Título de Analítica'
+    ANALYTICS_TITLE: 'Título de Cookies de Análisis'
     ANALYTICS_PLACEHOLDER: 'Cookies de Analítica'
-    MARKETING_TITLE: 'Título de Marketing'
+    MARKETING_TITLE: 'Título de Cookies de Marketing'
     MARKETING_PLACEHOLDER: 'Cookies de Publicidad'
     MORE_INFO_TITLE: 'Título de Más Información'
     MORE_INFO_PLACEHOLDER: 'Más Información'
