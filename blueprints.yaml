@@ -1,7 +1,7 @@
 name: Orestbida Cookie Consent
 slug: orestbida-cookie-consent
 type: plugin
-version: 2.0.1
+version: 2.1.0
 description: This grav plugin allows you to manage the cookies used in your site with the popular js lib Cookie Consent by Orestbida.
 icon: plug
 author:
@@ -170,6 +170,7 @@ form:
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_ACCEPTALLBTN
               validate:
                 type: text
+                required: true
 
             consent_acceptNecessaryBtn:
               type: text
@@ -188,6 +189,7 @@ form:
             consent_footer:
               type: text
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_FOOTER
+              placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_FOOTER_PLACEHOLDER
               help: PLUGIN_ORESTBIDA_COOKIE_CONSENT.CONSENT_FOOTER_HELP
               markdown: true
               validate:
@@ -232,18 +234,21 @@ form:
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_ACCEPTALLBTN
               validate:
                 type: text
+                required: true
 
             preferences_acceptNecessaryBtn:
               type: text
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_ACCEPTNECESSARYBTN
               validate:
                 type: text
+                required: true
 
             preferences_savePreferencesBtn:
               type: text
               label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.PREFERENCES_SAVEPREFERENCESBTN
               validate:
                 type: text
+                required: true
 
     categories:
       type: checkboxes
@@ -272,21 +277,11 @@ form:
       type: section
       title: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SECTIONS_CONTENT_TITLE
       fields:
-        cookies_sections.default:
-          type: elements
-          label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SECTIONS_CONTENT_LABEL
-          size: large
-          default: usage
-          options:
-            usage: PLUGIN_ORESTBIDA_COOKIE_CONSENT.USAGE
-            necessary: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_COOKIES
-            functionality: PLUGIN_ORESTBIDA_COOKIE_CONSENT.FUNCTIONALITY_COOKIES
-            analytics: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS_COOKIES
-            marketing: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_COOKIES
-            more_info: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO
+        columns:
+          type: columns
           fields:
-            usage:
-              type: element
+            column1:
+              type: column
               fields:
                 cookies_sections.usage.title:
                   type: text
@@ -299,21 +294,26 @@ form:
                   markdown: true
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
-            necessary:
-              type: element
-              fields:
+
                 cookies_sections.necessary.title:
                   type: text
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_TITLE
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.NECESSARY_PLACEHOLDER
+                  validate:
+                    type: text
+                    required: true
                 cookies_sections.necessary.description:
                   type: textarea
                   rows: 3
                   markdown: true
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
-            functionality:
-              type: element
+                  validate:
+                    type: text
+                    required: true
+
+            column2:
+              type: column
               fields:
                 cookies_sections.functionality.title:
                   type: text
@@ -325,9 +325,7 @@ form:
                   markdown: true
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
-            analytics:
-              type: element
-              fields:
+
                 cookies_sections.analytics.title:
                   type: text
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.ANALYTICS_TITLE
@@ -338,29 +336,3 @@ form:
                   markdown: true
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
-            marketing:
-              type: element
-              fields:
-                cookies_sections.marketing.title:
-                  type: text
-                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_TITLE
-                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_PLACEHOLDER
-                cookies_sections.marketing.description:
-                  type: textarea
-                  rows: 3
-                  markdown: true
-                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
-                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
-            more_info:
-              type: element
-              fields:
-                cookies_sections.more_info.title:
-                  type: text
-                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_TITLE
-                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_PLACEHOLDER
-                cookies_sections.more_info.description:
-                  type: textarea
-                  rows: 3
-                  markdown: true
-                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
-                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_DESCRIPTIOIN_PLACEHOLDER
