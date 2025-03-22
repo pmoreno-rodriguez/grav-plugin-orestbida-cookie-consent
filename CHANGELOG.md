@@ -1,3 +1,13 @@
+# v2.1.0
+##  03/22/2025
+
+1. [](#improved)
+    * Updated some translations
+    * Replaced elements type fields with text and textarea fields in the plugin blueprints to improve usability and simplify content management
+    * Added required fields to improve plugin functionality
+2. [](#bugfix)
+    * Fix: Handle null values in escapeQuotes function to prevent type errors
+
 # v2.0.1
 ##  03/12/2025
 
