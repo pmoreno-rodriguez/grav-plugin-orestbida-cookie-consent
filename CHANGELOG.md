@@ -1,3 +1,10 @@
+# v2.2.0
+## 10/13/2025
+1. [](#improved)
+    * Improved template security with consistent input sanitization across all user-configurable content
+    * Added `onOutputGenerated` hook to ensure plugin works with all theme configurations
+    * Fixed CDN URLs to use HTTPS instead of HTTP
+
 # v2.1.0
 ##  03/22/2025
 
