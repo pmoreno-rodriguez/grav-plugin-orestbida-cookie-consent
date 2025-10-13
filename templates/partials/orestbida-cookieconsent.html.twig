@@ -91,29 +91,29 @@ CookieConsent.run({
         translations: {
             {{ lang }}: {
                 consentModal: {
-                    title: '{{ config.consent_title|raw }}',
-                    description: '{{ config.consent_description|markdown|raw }}',
-                    acceptAllBtn: '{{ config.consent_acceptAllBtn|raw }}',
-                    acceptNecessaryBtn: '{{ config.consent_acceptNecessaryBtn|raw }}',
-                    showPreferencesBtn: '{{ config.consent_showPreferencesBtn|raw }}',
-                    {% if config.consent_footer %}footer: '{{ config.consent_footer|raw }}',{% endif %}
+                    title: '{{ config.consent_title|striptags|escape_quotes }}',
+                    description: '{{ config.consent_description|markdown|striptags }}',
+                    acceptAllBtn: '{{ config.consent_acceptAllBtn|striptags|escape_quotes }}',
+                    acceptNecessaryBtn: '{{ config.consent_acceptNecessaryBtn|striptags|escape_quotes }}',
+                    showPreferencesBtn: '{{ config.consent_showPreferencesBtn|striptags|escape_quotes }}',
+                    {% if config.consent_footer %}footer: '{{ config.consent_footer|striptags|escape_quotes }}',{% endif %}
                 },
                 preferencesModal: {
-                    title: '{{ config.preferences_title|raw }}',
-                    acceptAllBtn: '{{ config.preferences_acceptAllBtn|raw }}',
-                    acceptNecessaryBtn: '{{ config.preferences_acceptNecessaryBtn|raw }}',
-                    savePreferencesBtn: '{{ config.preferences_savePreferencesBtn|raw }}',
+                    title: '{{ config.preferences_title|striptags|escape_quotes }}',
+                    acceptAllBtn: '{{ config.preferences_acceptAllBtn|striptags|escape_quotes }}',
+                    acceptNecessaryBtn: '{{ config.preferences_acceptNecessaryBtn|striptags|escape_quotes }}',
+                    savePreferencesBtn: '{{ config.preferences_savePreferencesBtn|striptags|escape_quotes }}',
                     closeIconLabel: "X",
                     sections: [
                         {# Usage section is always present #}
                         {
-                            title: "{{ config.cookies_sections.usage.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.usage.description|escape_quotes|markdown|raw }}"
+                            title: '{{ config.cookies_sections.usage.title|striptags|escape_quotes }}',
+                            description: '{{ config.cookies_sections.usage.description|markdown|striptags }}'
                         },
                         {# Necessary category section is always present #}
                         {
-                            title: "{{ config.cookies_sections.necessary.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.necessary.description|escape_quotes|markdown|raw }}",
+                            title: '{{ config.cookies_sections.necessary.title|striptags|escape_quotes }}',
+                            description: '{{ config.cookies_sections.necessary.description|markdown|striptags }}',
                             linkedCategory: "necessary"
                         },
                         
@@ -121,8 +121,8 @@ CookieConsent.run({
                         {% for category, settings in available_categories %}
                             {% if category != 'necessary' and settings.enabled and config.cookies_sections[category] is defined %}
                                 {
-                                    title: "{{ config.cookies_sections[category].title|escape_quotes|raw }}",
-                                    description: "{{ config.cookies_sections[category].description|escape_quotes|markdown|raw }}",
+                                    title: '{{ config.cookies_sections[category].title|striptags|escape_quotes }}',
+                                    description: '{{ config.cookies_sections[category].description|markdown|striptags }}',
                                     linkedCategory: "{{ category }}"
                                 },
                             {% endif %}
@@ -131,8 +131,8 @@ CookieConsent.run({
                         {# More info section if available #}
                         {% if config.cookies_sections.more_info.title %}
                         {
-                            title: "{{ config.cookies_sections.more_info.title|escape_quotes|raw }}",
-                            description: "{{ config.cookies_sections.more_info.description|escape_quotes|markdown|raw }}"
+                            title: '{{ config.cookies_sections.more_info.title|striptags|escape_quotes }}',
+                            description: '{{ config.cookies_sections.more_info.description|markdown|striptags }}'
                         }
                         {% endif %}
                     ]
@@ -141,6 +141,7 @@ CookieConsent.run({
         }
     }
 });
+
 {% set show_delay = config.plugins['orestbida-cookie-consent'].show_delay|default(3000) %}
 
 setTimeout(function() {

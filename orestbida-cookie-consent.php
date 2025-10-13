@@ -34,6 +34,11 @@ class OrestbidaCookieConsentPlugin extends Plugin
     private const CDN_VERSION = '3.1.0';
 
     /**
+     * Unique marker to avoid duplicate script injection.
+     */
+    private const UNIQUE_MARKER = 'orestbida-cookie-consent-init';
+
+    /**
      * Returns a list of events this plugin is subscribed to.
      *
      * @return array
@@ -60,6 +65,7 @@ class OrestbidaCookieConsentPlugin extends Plugin
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
             'onTwigExtensions' => ['onTwigExtensions', 0],
+            'onOutputGenerated' => ['onOutputGenerated', 0],
         ]);
     }
 
@@ -72,25 +78,68 @@ class OrestbidaCookieConsentPlugin extends Plugin
     }
 
     /**
-     * Adds CSS, JS, and inline scripts to the site.
+     * Adds CSS and JS to the site (will be rendered in head).
+     * These are loaded via the theme's asset system, compatible with all themes.
      */
     public function onTwigSiteVariables(): void
     {
-        $twig = $this->grav['twig'];
         $assets = $this->grav['assets'];
         
         // Validate and get configuration
         $config = $this->validateConfig();
-        $lang = $this->getCurrentLanguage();
 
         // Load theme CSS if specified
         $this->loadThemeCSS($assets, $config);
         
         // Load library files (CDN or local)
         $this->loadLibraryFiles($assets, $config);
+    }
 
-        // Add initialization script
-        $this->addInitScript($twig, $assets, $config, $lang);
+    /**
+     * Injects the initialization script before closing body tag.
+     * This ensures the DOM is ready when the script executes.
+     */
+    public function onOutputGenerated(): void
+    {
+        try {
+            $twig = $this->grav['twig'];
+            $config = $this->validateConfig();
+            $lang = $this->getCurrentLanguage();
+
+            // Get the current output
+            $output = $this->grav->output;
+
+            // Check if scripts are already injected to avoid duplicates
+            if (strpos($output, self::UNIQUE_MARKER) !== false) {
+                return;
+            }
+
+            // Generate the initialization script
+            $initScript = $twig->twig->render(self::INIT_TEMPLATE, [
+                'config' => $config,
+                'lang' => $lang
+            ]);
+
+            // Validate script content
+            if (empty(trim($initScript))) {
+                throw new \RuntimeException('Empty initialization script generated');
+            }
+
+            // Wrap the initialization script in script tags with unique marker
+            $scriptTag = "<!-- " . self::UNIQUE_MARKER . " -->\n<script>\n" . $initScript . "\n</script>";
+
+            // Inject before closing </body> tag
+            if (($bodyPos = strripos($output, '</body>')) !== false) {
+                $output = substr_replace($output, $scriptTag . "\n", $bodyPos, 0);
+                $this->grav->output = $output;
+            } else {
+                // Fallback: append at the end if no </body> tag found
+                $this->grav->output = $output . $scriptTag;
+            }
+        } catch (\Exception $e) {
+            // Log error but don't break the site
+            $this->grav['log']->error('CookieConsent Plugin Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -100,14 +149,19 @@ class OrestbidaCookieConsentPlugin extends Plugin
      */
     private function validateConfig(): array
     {
-        $config = $this->config->toArray();
+        static $cachedConfig = null;
         
-        // Validate required settings (could add more validation logic here)
-        if (!isset($config['plugins']['orestbida-cookie-consent'])) {
-            throw new \RuntimeException('Plugin configuration not found');
+        if ($cachedConfig !== null) {
+            return $cachedConfig;
         }
         
-        return $config;
+        $config = $this->config->get('plugins.orestbida-cookie-consent');
+        if (empty($config)) {
+            throw new \RuntimeException('Missing configuration for plugin orestbida-cookie-consent');
+        }
+
+        $cachedConfig = $config;
+        return $cachedConfig;
     }
 
     /**
@@ -146,28 +200,12 @@ class OrestbidaCookieConsentPlugin extends Plugin
         $cdnEnabled = $this->config->get('plugins.orestbida-cookie-consent.cdn');
         
         if ($cdnEnabled) {
-            $assets->addCss("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.css");
-            $assets->addJs("//cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.umd.js", ['group' => 'bottom']);
+            $assets->addCss("https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.css");
+            $assets->addJs("https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.umd.js");
         } else {
             $assets->addCss(self::ASSETS_PATH . 'css/cookieconsent.css');
-            $assets->addJs(self::ASSETS_PATH . 'js/cookieconsent.umd.js', ['group' => 'bottom']);
+            $assets->addJs(self::ASSETS_PATH . 'js/cookieconsent.umd.js');
         }
-    }
-
-    /**
-     * Adds the initialization script to the page.
-     * 
-     * @param object $twig Twig environment
-     * @param object $assets Grav assets manager
-     * @param array $config Plugin configuration
-     * @param string $lang Current language
-     */
-    private function addInitScript($twig, $assets, array $config, string $lang): void
-    {
-        $assets->addInlineJs(
-            $twig->twig->render(self::INIT_TEMPLATE, ['config' => $config, 'lang' => $lang]),
-            ['group' => 'bottom']
-        );
     }
 
     /**
@@ -187,10 +225,10 @@ class OrestbidaCookieConsentPlugin extends Plugin
      * @return string Escaped text
      */
     public function escapeQuotes(?string $text): string
-	{
-		if ($text === null) {
-			return '';
-		}
-		return str_replace('"', '\\"', $text);
-	}
+    {
+        if ($text === null) {
+            return '';
+        }
+        return str_replace('"', '\\"', $text);
+    }
 }
