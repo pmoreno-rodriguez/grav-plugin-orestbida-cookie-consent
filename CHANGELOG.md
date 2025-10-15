@@ -1,5 +1,6 @@
 # v2.2.0
 ## 10/13/2025
+
 1. [](#improved)
     * Improved template security with consistent input sanitization across all user-configurable content
     * Added `onOutputGenerated` hook to ensure plugin works with all theme configurations
