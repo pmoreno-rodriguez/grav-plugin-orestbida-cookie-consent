@@ -1,3 +1,12 @@
+# v2.2.1
+## 11/23/2025
+
+1. [](#improved)
+    * Refactored `onTwigSiteVariables()` method to include hybrid injection.
+    * Optimized `onOutputGenerated()` to detect if script was already rendered before applying fallback.
+2. [](#bugfix)
+    * Fixed Twig template error that unnecessarily redefined `config` variable, causing plugin not to load properly.
+
 # v2.2.0
 ## 10/13/2025
 
