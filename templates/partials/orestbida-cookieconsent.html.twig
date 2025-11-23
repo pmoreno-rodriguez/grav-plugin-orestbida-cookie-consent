@@ -3,7 +3,6 @@
    It handles layout, position, and language settings based on the plugin configuration.
 #}
 
-{% set config = config.plugins['orestbida-cookie-consent'] %}
 {% set lang = lang|default('en') %}
 
 {# Layout and position mapping from config values to library values #}
@@ -142,7 +141,7 @@ CookieConsent.run({
     }
 });
 
-{% set show_delay = config.plugins['orestbida-cookie-consent'].show_delay|default(3000) %}
+{% set show_delay = config.show_delay|default(3000) %}
 
 setTimeout(function() {
     CookieConsent.show();
