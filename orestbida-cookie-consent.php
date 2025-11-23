@@ -39,6 +39,11 @@ class OrestbidaCookieConsentPlugin extends Plugin
     private const UNIQUE_MARKER = 'orestbida-cookie-consent-init';
 
     /**
+     * Track if inline JS was added via assets
+     */
+    private $inlineJsAdded = false;
+
+    /**
      * Returns a list of events this plugin is subscribed to.
      *
      * @return array
@@ -79,7 +84,7 @@ class OrestbidaCookieConsentPlugin extends Plugin
 
     /**
      * Adds CSS and JS to the site (will be rendered in head).
-     * These are loaded via the theme's asset system, compatible with all themes.
+     * Also attempts hybrid injection via assets->addInlineJs().
      */
     public function onTwigSiteVariables(): void
     {
@@ -93,26 +98,53 @@ class OrestbidaCookieConsentPlugin extends Plugin
         
         // Load library files (CDN or local)
         $this->loadLibraryFiles($assets, $config);
+
+        // HYBRID INJECTION: Try to inject via assets system
+        try {
+            $twig = $this->grav['twig'];
+            $lang = $this->getCurrentLanguage();
+
+            // Generate the initialization script
+            $initScript = $twig->twig->render(self::INIT_TEMPLATE, [
+                'config' => $config,
+                'lang' => $lang
+            ]);
+
+            // Validate script content
+            if (!empty(trim($initScript))) {
+                // Add inline JS with high priority to execute after library loads
+                $assets->addInlineJs($initScript, ['group' => 'bottom', 'priority' => 10]);
+                $this->inlineJsAdded = true;
+            }
+        } catch (\Exception $e) {
+            $this->grav['log']->error('CookieConsent Plugin Error (inline injection): ' . $e->getMessage());
+        }
     }
 
     /**
-     * Injects the initialization script before closing body tag.
-     * This ensures the DOM is ready when the script executes.
+     * FALLBACK: Injects the initialization script before closing body tag
+     * if the theme didn't render the inline JS from assets.
      */
     public function onOutputGenerated(): void
     {
         try {
-            $twig = $this->grav['twig'];
-            $config = $this->validateConfig();
-            $lang = $this->getCurrentLanguage();
-
             // Get the current output
             $output = $this->grav->output;
 
-            // Check if scripts are already injected to avoid duplicates
+            // Check if scripts are already injected (either via assets or previous fallback)
             if (strpos($output, self::UNIQUE_MARKER) !== false) {
                 return;
             }
+
+            // If inline JS was added via assets and the theme rendered it, skip fallback
+            if ($this->inlineJsAdded && strpos($output, 'CookieConsent.run') !== false) {
+                return;
+            }
+
+            // FALLBACK INJECTION: Theme doesn't support {% block bottom %} or didn't render inline JS
+            $twig = $this->grav['twig'];
+            $config = $this->validateConfig();
+            $lang = $this->getCurrentLanguage();
 
             // Generate the initialization script
             $initScript = $twig->twig->render(self::INIT_TEMPLATE, [
@@ -138,7 +170,7 @@ class OrestbidaCookieConsentPlugin extends Plugin
             }
         } catch (\Exception $e) {
             // Log error but don't break the site
-            $this->grav['log']->error('CookieConsent Plugin Error: ' . $e->getMessage());
+            $this->grav['log']->error('CookieConsent Plugin Error (fallback): ' . $e->getMessage());
         }
     }
 
