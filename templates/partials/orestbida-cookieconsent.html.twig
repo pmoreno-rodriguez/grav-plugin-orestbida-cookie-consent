@@ -45,15 +45,17 @@
 {# Get layout and position values with defaults #}
 {% set c_layout = layout_map.consent[config.consent_layout] ?? 'box' %}
 {% set p_layout = layout_map.preferences[config.preferences_layout] ?? 'box' %}
-{% set c_position = position_map.consent[config.consent_position] ?? 'bottom_right' %}
+{% set c_position = position_map.consent[config.consent_position] ?? 'bottom right' %}
 {% set p_position = position_map.preferences[config.preferences_position] ?? 'left' %}
+{% set selected_categories = config.categories|default({}) %}
+{% set rich_html_tags = '<a><strong><em><b><i><u><small><br><p><ul><ol><li><span>' %}
 
 {# Define available cookie categories #}
 {% set available_categories = {
     'necessary': { 'readOnly': true },
-    'functionality': { 'enabled': config.categories.functionality ?? false },
-    'analytics': { 'enabled': config.categories.analytics ?? false },
-    'marketing': { 'enabled': config.categories.marketing ?? false }
+    'functionality': { 'enabled': (selected_categories.functionality ?? false) or ('functionality' in selected_categories) },
+    'analytics': { 'enabled': (selected_categories.analytics ?? false) or ('analytics' in selected_categories) },
+    'marketing': { 'enabled': (selected_categories.marketing ?? false) or ('marketing' in selected_categories) }
 } %}
 
 {# JavaScript configuration for cookie consent #}
@@ -65,14 +67,14 @@ CookieConsent.run({
 
     guiOptions: {
         consentModal: {
-            layout: '{{ c_layout }}',
-            position: '{{ c_position }}',
+            layout: {{ c_layout|json_encode|raw }},
+            position: {{ c_position|json_encode|raw }},
             equalWeightButtons: false,
             flipButtons: false
         },
         preferencesModal: {
-            layout: '{{ p_layout }}',
-            position: '{{ p_position }}',
+            layout: {{ p_layout|json_encode|raw }},
+            position: {{ p_position|json_encode|raw }},
             equalWeightButtons: false,
             flipButtons: false
         }
@@ -86,33 +88,33 @@ CookieConsent.run({
         {% endfor %}
     },
     language: {
-        default: '{{ lang }}',
+        default: {{ lang|json_encode|raw }},
         translations: {
-            {{ lang }}: {
+            {{ lang|json_encode|raw }}: {
                 consentModal: {
-                    title: '{{ config.consent_title|striptags|escape_quotes }}',
-                    description: '{{ config.consent_description|markdown|striptags }}',
-                    acceptAllBtn: '{{ config.consent_acceptAllBtn|striptags|escape_quotes }}',
-                    acceptNecessaryBtn: '{{ config.consent_acceptNecessaryBtn|striptags|escape_quotes }}',
-                    showPreferencesBtn: '{{ config.consent_showPreferencesBtn|striptags|escape_quotes }}',
-                    {% if config.consent_footer %}footer: '{{ config.consent_footer|striptags|escape_quotes }}',{% endif %}
+                    title: {{ config.consent_title|markdown|striptags(rich_html_tags)|json_encode|raw }},
+                    description: {{ config.consent_description|markdown|striptags(rich_html_tags)|json_encode|raw }},
+                    acceptAllBtn: {{ config.consent_acceptAllBtn|striptags|json_encode|raw }},
+                    acceptNecessaryBtn: {{ config.consent_acceptNecessaryBtn|striptags|json_encode|raw }},
+                    showPreferencesBtn: {{ config.consent_showPreferencesBtn|striptags|json_encode|raw }},
+                    {% if config.consent_footer %}footer: {{ config.consent_footer|replace({'\\n': "\n"})|striptags(rich_html_tags)|json_encode|raw }},{% endif %}
                 },
                 preferencesModal: {
-                    title: '{{ config.preferences_title|striptags|escape_quotes }}',
-                    acceptAllBtn: '{{ config.preferences_acceptAllBtn|striptags|escape_quotes }}',
-                    acceptNecessaryBtn: '{{ config.preferences_acceptNecessaryBtn|striptags|escape_quotes }}',
-                    savePreferencesBtn: '{{ config.preferences_savePreferencesBtn|striptags|escape_quotes }}',
+                    title: {{ config.preferences_title|markdown|striptags(rich_html_tags)|json_encode|raw }},
+                    acceptAllBtn: {{ config.preferences_acceptAllBtn|striptags|json_encode|raw }},
+                    acceptNecessaryBtn: {{ config.preferences_acceptNecessaryBtn|striptags|json_encode|raw }},
+                    savePreferencesBtn: {{ config.preferences_savePreferencesBtn|striptags|json_encode|raw }},
                     closeIconLabel: "X",
                     sections: [
                         {# Usage section is always present #}
                         {
-                            title: '{{ config.cookies_sections.usage.title|striptags|escape_quotes }}',
-                            description: '{{ config.cookies_sections.usage.description|markdown|striptags }}'
+                            title: {{ config.cookies_sections.usage.title|striptags|json_encode|raw }},
+                            description: {{ config.cookies_sections.usage.description|markdown|striptags(rich_html_tags)|json_encode|raw }}
                         },
                         {# Necessary category section is always present #}
                         {
-                            title: '{{ config.cookies_sections.necessary.title|striptags|escape_quotes }}',
-                            description: '{{ config.cookies_sections.necessary.description|markdown|striptags }}',
+                            title: {{ config.cookies_sections.necessary.title|striptags|json_encode|raw }},
+                            description: {{ config.cookies_sections.necessary.description|markdown|striptags(rich_html_tags)|json_encode|raw }},
                             linkedCategory: "necessary"
                         },
                         
@@ -120,9 +122,9 @@ CookieConsent.run({
                         {% for category, settings in available_categories %}
                             {% if category != 'necessary' and settings.enabled and config.cookies_sections[category] is defined %}
                                 {
-                                    title: '{{ config.cookies_sections[category].title|striptags|escape_quotes }}',
-                                    description: '{{ config.cookies_sections[category].description|markdown|striptags }}',
-                                    linkedCategory: "{{ category }}"
+                                    title: {{ config.cookies_sections[category].title|striptags|json_encode|raw }},
+                                    description: {{ config.cookies_sections[category].description|markdown|striptags(rich_html_tags)|json_encode|raw }},
+                                    linkedCategory: {{ category|json_encode|raw }}
                                 },
                             {% endif %}
                         {% endfor %}
@@ -130,8 +132,8 @@ CookieConsent.run({
                         {# More info section if available #}
                         {% if config.cookies_sections.more_info.title %}
                         {
-                            title: '{{ config.cookies_sections.more_info.title|striptags|escape_quotes }}',
-                            description: '{{ config.cookies_sections.more_info.description|markdown|striptags }}'
+                            title: {{ config.cookies_sections.more_info.title|striptags|json_encode|raw }},
+                            description: {{ config.cookies_sections.more_info.description|markdown|striptags(rich_html_tags)|json_encode|raw }}
                         }
                         {% endif %}
                     ]

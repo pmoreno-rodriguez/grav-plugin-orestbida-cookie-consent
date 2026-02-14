@@ -2,7 +2,6 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
-use Twig\TwigFilter;
 
 /**
  * Class OrestbidaCookieConsentPlugin
@@ -69,7 +68,6 @@ class OrestbidaCookieConsentPlugin extends Plugin
         $this->enable([
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
-            'onTwigExtensions' => ['onTwigExtensions', 0],
             'onOutputGenerated' => ['onOutputGenerated', 0],
         ]);
     }
@@ -186,13 +184,8 @@ class OrestbidaCookieConsentPlugin extends Plugin
         if ($cachedConfig !== null) {
             return $cachedConfig;
         }
-        
-        $config = $this->config->get('plugins.orestbida-cookie-consent');
-        if (empty($config)) {
-            throw new \RuntimeException('Missing configuration for plugin orestbida-cookie-consent');
-        }
 
-        $cachedConfig = $config;
+        $cachedConfig = (array) $this->config->get('plugins.orestbida-cookie-consent', []);
         return $cachedConfig;
     }
 
@@ -214,9 +207,10 @@ class OrestbidaCookieConsentPlugin extends Plugin
      */
     private function loadThemeCSS($assets, array $config): void
     {
-        $theme = $this->config->get('plugins.orestbida-cookie-consent.theme');
-        
-        if ($theme) {
+        $theme = $config['theme'] ?? null;
+        $allowedThemes = ['default', 'light-funky', 'dark-turquoise', 'elegant'];
+
+        if ($theme && in_array($theme, $allowedThemes, true)) {
             $assets->addCss(self::ASSETS_PATH . 'css/cookies_themes/' . $theme . '.css');
         }
     }
@@ -229,7 +223,7 @@ class OrestbidaCookieConsentPlugin extends Plugin
      */
     private function loadLibraryFiles($assets, array $config): void
     {
-        $cdnEnabled = $this->config->get('plugins.orestbida-cookie-consent.cdn');
+        $cdnEnabled = !empty($config['cdn']);
         
         if ($cdnEnabled) {
             $assets->addCss("https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@" . self::CDN_VERSION . "/dist/cookieconsent.css");
@@ -238,29 +232,5 @@ class OrestbidaCookieConsentPlugin extends Plugin
             $assets->addCss(self::ASSETS_PATH . 'css/cookieconsent.css');
             $assets->addJs(self::ASSETS_PATH . 'js/cookieconsent.umd.js');
         }
-    }
-
-    /**
-     * Adds custom Twig filters to the Twig environment.
-     */
-    public function onTwigExtensions(): void
-    {
-        $this->grav['twig']->twig()->addFilter(
-            new TwigFilter('escape_quotes', [$this, 'escapeQuotes'])
-        );
-    }
-
-    /**
-     * Escapes double quotes in strings for JavaScript.
-     * 
-     * @param string $text Text to escape
-     * @return string Escaped text
-     */
-    public function escapeQuotes(?string $text): string
-    {
-        if ($text === null) {
-            return '';
-        }
-        return str_replace('"', '\\"', $text);
     }
 }
