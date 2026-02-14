@@ -1,3 +1,15 @@
+# v2.3.0
+## 02/14/2026
+
+1. [](#new)
+    * Added complete default plugin configuration file with all supported options and sections.
+2. [](#bugfix)
+    * Fixed fallback consent modal position mapping to `bottom right`.
+3. [](#improved)
+    * Improved Twig JS serialization by using JSON-safe output for configuration strings.
+    * Added missing blueprint fields for `marketing` and `more_info` section content.
+    * Updated plugin metadata and documentation consistency (Composer homepage/autoload and README config keys).
+
 # v2.2.1
 ## 11/23/2025
 

@@ -100,10 +100,16 @@ cookies_sections:
 
 # Advanced Settings
 autoshow: true  # Automatically show the consent modal if consent is not valid.
-show_delay: # Set the delay in milliseconds before the cookie consent banner is shown.
-hide_from_bots: # Stops the plugin's execution when a bot/crawler is detected, to prevent them from indexing the modal's content.
-disable_page_interaction: true # Creates a dark overlay and blocks the page scroll until consent is expressed.
+show_delay: 3000 # Set the delay in milliseconds before the cookie consent banner is shown.
+hideFromBots: false # Stops the plugin's execution when a bot/crawler is detected, to prevent them from indexing the modal's content.
+disablePageInteraction: false # Creates a dark overlay and blocks the page scroll until consent is expressed.
 ```
+
+### `autoshow` and `show_delay`
+
+- `autoshow` maps directly to CookieConsent's native `autoShow` option.
+- The plugin also calls `CookieConsent.show()` after `show_delay` milliseconds.
+- This means `show_delay` applies to the plugin-driven display timing.
 
 ## Usage
 
