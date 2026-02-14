@@ -1,7 +1,7 @@
 name: Orestbida Cookie Consent
 slug: orestbida-cookie-consent
 type: plugin
-version: 2.2.1
+version: 2.3.0
 description: This grav plugin allows you to manage the cookies used in your site with the popular js lib Cookie Consent by Orestbida.
 icon: plug
 author:
@@ -336,3 +336,25 @@ form:
                   markdown: true
                   label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
                   placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+
+                cookies_sections.marketing.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MARKETING_PLACEHOLDER
+                cookies_sections.marketing.description:
+                  type: textarea
+                  rows: 3
+                  markdown: true
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_PLACEHOLDER
+
+                cookies_sections.more_info.title:
+                  type: text
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_TITLE
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_PLACEHOLDER
+                cookies_sections.more_info.description:
+                  type: textarea
+                  rows: 3
+                  markdown: true
+                  label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DESCRIPTION_LABEL
+                  placeholder: PLUGIN_ORESTBIDA_COOKIE_CONSENT.MORE_INFO_DESCRIPTION_PLACEHOLDER

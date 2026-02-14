@@ -97,8 +97,7 @@ en:
     MARKETING_PLACEHOLDER: 'Advertisement Cookies'
     MORE_INFO_TITLE: 'More Info Title'
     MORE_INFO_PLACEHOLDER: 'More Information'
-    MORE_INFO_DESCRIPTIOIN_PLACEHOLDER: 'For any query in relation to my policy on cookies and your choices, please <a href="#>contact me</a>.'
-
+    MORE_INFO_DESCRIPTION_PLACEHOLDER: 'For any query in relation to my policy on cookies and your choices, please <a href="#>contact me</a>.'
 es:
   PLUGIN_ORESTBIDA_COOKIE_CONSENT:
     TAB: Cookies
@@ -198,4 +197,4 @@ es:
     MARKETING_PLACEHOLDER: 'Cookies de Publicidad'
     MORE_INFO_TITLE: 'Título de Más Información'
     MORE_INFO_PLACEHOLDER: 'Más Información'
-    MORE_INFO_DESCRIPTIOIN_PLACEHOLDER: 'Para cualquier consulta en relación con mi política de cookies y tus elecciones, por favor <a href="#>contáctame</a>.'
+    MORE_INFO_DESCRIPTION_PLACEHOLDER: 'Para cualquier consulta en relación con mi política de cookies y tus elecciones, por favor <a href="#>contáctame</a>.'

@@ -1,1 +1,50 @@
 enabled: true
+cdn: true
+theme: default
+
+autoshow: true
+show_delay: 3000
+hideFromBots: false
+disablePageInteraction: false
+
+consent_layout: block
+consent_position: bottom_right
+consent_title: We use cookies
+consent_description: We use cookies to ensure that we give you the best experience on our website.
+consent_acceptAllBtn: Accept all
+consent_acceptNecessaryBtn: Reject all
+consent_showPreferencesBtn: Manage preferences
+consent_footer: ''
+
+preferences_layout: box
+preferences_position: left
+preferences_title: Consent preferences center
+preferences_acceptAllBtn: Accept all
+preferences_acceptNecessaryBtn: Reject all
+preferences_savePreferencesBtn: Save preferences
+
+categories:
+  necessary: true
+  functionality: false
+  analytics: false
+  marketing: false
+
+cookies_sections:
+  usage:
+    title: Cookie usage
+    description: 'We use cookies to ensure that we give you the best experience on our website.'
+  necessary:
+    title: Strictly necessary cookies
+    description: 'These cookies are essential for the proper functioning of the website and cannot be disabled.'
+  functionality:
+    title: Functionality cookies
+    description: 'These cookies allow enhanced functionality and personalization.'
+  analytics:
+    title: Analytics cookies
+    description: 'These cookies help us understand how visitors interact with the website.'
+  marketing:
+    title: Marketing cookies
+    description: 'These cookies are used to deliver personalized advertisements.'
+  more_info:
+    title: More information
+    description: 'For any query in relation to our cookie policy and your choices, please contact us.'
