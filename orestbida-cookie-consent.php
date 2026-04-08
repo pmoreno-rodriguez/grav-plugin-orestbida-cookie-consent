@@ -86,6 +86,11 @@ class OrestbidaCookieConsentPlugin extends Plugin
      */
     public function onTwigSiteVariables(): void
     {
+        $page = $this->grav['page'];
+        if ($page && $page->templateFormat() !== 'html') {
+          return;
+        }
+
         $assets = $this->grav['assets'];
         
         // Validate and get configuration
@@ -125,6 +130,11 @@ class OrestbidaCookieConsentPlugin extends Plugin
      */
     public function onOutputGenerated(): void
     {
+        $page = $this->grav['page'];
+        if ($page && $page->templateFormat() !== 'html') {
+          return;
+        }
+
         try {
             // Get the current output
             $output = $this->grav->output;
