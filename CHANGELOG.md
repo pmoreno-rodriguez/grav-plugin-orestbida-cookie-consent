@@ -1,3 +1,9 @@
+# v2.3.1
+## 04/08/2026
+
+1. [](#bugfix)
+    * fix(core): skip JS injection on non-HTML pages (thanks to [pawellabaj](https://github.com/pawellabaj))
+
 # v2.3.0
 ## 02/14/2026
 
