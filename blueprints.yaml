@@ -13,9 +13,11 @@ keywords: grav, plugin, cookies, consent
 bugs: https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent/issues
 docs: https://github.com/pmoreno-rodriguez/grav-plugin-orestbida-cookie-consent/blob/develop/README.md
 license: MIT
+compatibility:
+  grav: ["1.7", "2.0"]
 
 dependencies:
-  - { name: grav, version: '>=1.7.0' }
+  - { name: grav, version: ">=1.7.0" }
 
 form:
   validation: loose
@@ -58,7 +60,7 @@ form:
         light-funky: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.LIGHTFUNKY
         dark-turquoise: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.DARKTURQUOISE
         elegant: PLUGIN_ORESTBIDA_COOKIE_CONSENT.THEME.ELEGANT
-    
+
     autoshow:
       type: toggle
       label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.AUTOSHOW
@@ -70,7 +72,7 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
-    
+
     show_delay:
       type: number
       label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.SHOW_DELAY
@@ -81,7 +83,7 @@ form:
         type: number
         min: 0
         step: 500
-    
+
     hideFromBots:
       type: toggle
       label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.HIDE_FROM_BOTS
@@ -93,7 +95,7 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
-    
+
     disablePageInteraction:
       type: toggle
       label: PLUGIN_ORESTBIDA_COOKIE_CONSENT.DISABLE_PAGE_INTERACTION
