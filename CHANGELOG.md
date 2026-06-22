@@ -1,3 +1,9 @@
+# v2.3.3
+## 06/22/2026
+
+1. [](#bugfix)
+    * Version number corrected in theme blueprint
+    
 # v2.3.2
 ## 06/21/2026
 
